@@ -1,23 +1,9 @@
-buildscript {
-    ext {
-        springBootVersion = '2.1.0.RELEASE'
-    }
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-        mavenCentral()
-    }
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath "com.diffplug.spotless:spotless-plugin-gradle:3.16.0"
-    }
+plugins {
+    id 'org.springframework.boot' version '2.1.3.RELEASE'
+    id 'java'
 }
 
-plugins {
-    id "org.sonarqube" version "2.5"
-    id "org.flywaydb.flyway" version "5.0.7"
-}
+apply plugin: 'io.spring.dependency-management'
 
 apply plugin: 'java'
 apply plugin: 'maven'
@@ -26,41 +12,50 @@ apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'jacoco'
-apply plugin: "com.diffplug.gradle.spotless"
+//apply plugin: "com.diffplug.gradle.spotless"
 
 ext {
     extention = 'jar'
-
+    set('springCloudVersion', 'Greenwich.RELEASE')
 }
 
 configurations {
     myBatisGenerator
 }
 
-group = 'com.example'
+group = 'com.zomu.t.epion.tropic.test.tool'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
 }
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-actuator')
-    implementation('org.springframework.boot:spring-boot-starter-security')
-    implementation('org.springframework.boot:spring-boot-starter-thymeleaf')
-    implementation('org.springframework.boot:spring-boot-starter-web')
-    implementation('org.flywaydb:flyway-core')
-    implementation('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2')
-    compile('mysql:mysql-connector-java:6.0.6')
-    compileOnly('org.projectlombok:lombok:1.18.4')
-    runtimeOnly('org.springframework.boot:spring-boot-devtools')
-    runtimeOnly('mysql:mysql-connector-java')
-    testImplementation('org.springframework.boot:spring-boot-starter-test')
-    testImplementation('org.springframework.security:spring-security-test')
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
+    implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+    implementation 'org.springframework.session:spring-session-data-redis'
+    compileOnly 'org.projectlombok:lombok'
+    runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+    runtimeOnly 'mysql:mysql-connector-java'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
 
     myBatisGenerator("org.mybatis.generator:mybatis-generator-core:1.3.7")
     myBatisGenerator("mysql:mysql-connector-java:5.1.46")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
 }
 
 configurations {
@@ -111,28 +106,28 @@ task packageSources(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
-spotless {
-    java {
-        enforceCheck = false
-        licenseHeaderFile rootProject.file('./formatter/LICENSE')
-        eclipse().configFile rootProject.file('./formatter/formatter.xml')
-        ignoreErrorForPath('ssssss')
-        lineEndings 'UNIX'
-    }
-
-    sourceSets {
-        main {
-            java {
-                srcDir 'src/main/java'
-                srcDir 'src-gen/main/java'
-            }
-            resources {
-                srcDir 'src/main/resources'
-                srcDir 'src-gen/main/resources'
-            }
-        }
-    }
-}
+//spotless {
+//    java {
+//        enforceCheck = false
+//        licenseHeaderFile rootProject.file('./formatter/LICENSE')
+//        eclipse().configFile rootProject.file('./formatter/formatter.xml')
+//        ignoreErrorForPath('ssssss')
+//        lineEndings 'UNIX'
+//    }
+//
+//    sourceSets {
+//        main {
+//            java {
+//                srcDir 'src/main/java'
+//                srcDir 'src-gen/main/java'
+//            }
+//            resources {
+//                srcDir 'src/main/resources'
+//                srcDir 'src-gen/main/resources'
+//            }
+//        }
+//    }
+//}
 
 task generateMyBatisCode(type: JavaExec) {
     classpath = configurations.myBatisGenerator
@@ -144,12 +139,12 @@ task generateMyBatisCode(type: JavaExec) {
     ]
 }
 
-flyway {
-    url = 'jdbc:mysql://localhost:3307?useSSL=false'
-    user = 'root'
-    password = 'password'
-    schemas = ['workdb', 'sampledb']
-}
+//flyway {
+//    url = 'jdbc:mysql://localhost:3307?useSSL=false'
+//    user = 'root'
+//    password = 'password'
+//    schemas = ['workdb', 'sampledb']
+//}
 
 task flywayRelease {
     doLast {
