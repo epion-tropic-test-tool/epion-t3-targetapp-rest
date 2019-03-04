@@ -52,7 +52,7 @@ public class TodosController {
     }
     
     @GetMapping("refer")
-    public ResponseEntity<Todo> read(
+    public ResponseEntity<Todo> refer(
     		@RequestParam String todoId) {
     	
     	Todo todo = todoCrudService.refer(todoId);
