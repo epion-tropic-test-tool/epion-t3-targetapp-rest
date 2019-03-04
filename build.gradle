@@ -37,13 +37,13 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.flywaydb:flyway-core'
+    // implementation 'org.flywaydb:flyway-core'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
-    implementation 'org.springframework.session:spring-session-data-redis'
+    // implementation 'org.springframework.session:spring-session-data-redis'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'mysql:mysql-connector-java'
+    implementation 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
@@ -115,18 +115,18 @@ task packageSources(type: Jar, dependsOn: classes) {
 //        lineEndings 'UNIX'
 //    }
 //
-//    sourceSets {
-//        main {
-//            java {
-//                srcDir 'src/main/java'
-//                srcDir 'src-gen/main/java'
-//            }
-//            resources {
-//                srcDir 'src/main/resources'
-//                srcDir 'src-gen/main/resources'
-//            }
-//        }
-//    }
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+                srcDir 'src-gen/main/java'
+            }
+            resources {
+                srcDir 'src/main/resources'
+                srcDir 'src-gen/main/resources'
+            }
+        }
+    }
 //}
 
 task generateMyBatisCode(type: JavaExec) {

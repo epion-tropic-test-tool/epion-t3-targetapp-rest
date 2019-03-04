@@ -16,33 +16,37 @@
         <!-- JDBC接続定義 -->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://localhost:3308/sampledb?useSSL=false"
+                connectionURL="jdbc:mysql://localhost:3306/sampledb?useSSL=false"
                 userId="root"
-                password="password">
+                password="alpha123">
         </jdbcConnection>
+        
+        <javaTypeResolver>
+            <property name="useJSR310Types" value="TIMESTAMP_WITH_TIMEZONE" />
+        </javaTypeResolver>
 
         <!-- Model/Entity -->
         <javaModelGenerator
-                targetPackage="com.example.simplespringbootapp.domain.model"
-                targetProject="./src/main/java">
+                targetPackage="com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.model"
+                targetProject="./src-gen/main/java">
         </javaModelGenerator>
 
         <!-- XMLMapper -->
         <sqlMapGenerator
-                targetPackage="com.example.simplespringbootapp.domain.mapper"
+                targetPackage="com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.mapper"
                 targetProject="./src-gen/main/resources">
         </sqlMapGenerator>
 
         <!-- MapperInterface -->
         <javaClientGenerator
                 type="XMLMAPPER"
-                targetPackage="com.example.simplespringbootapp.domain.mapper"
+                targetPackage="com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.mapper"
                 targetProject="./src-gen/main/java">
         </javaClientGenerator>
 
         <!-- Tables -->
         <table tableName="user"/>
-        <table tableName="todo"/>
+        <table tableName="todo" domainObjectName="TodoModel"/>
 
     </context>
 </generatorConfiguration>
