@@ -139,19 +139,12 @@ task generateMyBatisCode(type: JavaExec) {
 
 flyway {
     url = 'jdbc:mysql://localhost:3306?useSSL=false'
-//    driver = ' com.mysql.jdbc.Driver'
     user = 'user'
     password = 'password'
     schemas = ['workdb', 'tododb']
     configurations = ['flywayMigration']
 }
 
-task flywayRelease {
-    doLast {
-        flywayRepair.execute()
-        flywayMigrate.execute()
-        flywayInfo.execute()
-    }
-}
-
 generateMyBatisCode.group = 'mybatis generator'
+
+

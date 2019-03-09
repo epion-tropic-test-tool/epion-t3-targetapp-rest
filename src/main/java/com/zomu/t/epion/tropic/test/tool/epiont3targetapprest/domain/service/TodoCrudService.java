@@ -1,24 +1,18 @@
 package com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.service;
 
-import lombok.extern.slf4j.Slf4j;
-
-import java.time.OffsetDateTime;
-import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.app.model.Todo;
 import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.mapper.TodoMapper;
 import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.mapper.TodoModelMapper;
 import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.model.TodoModel;
-import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.model.TodoModelExample;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.util.*;
 
 @Service
 @Transactional
@@ -72,7 +66,7 @@ public class TodoCrudService {
     /**
      * Todoの削除を行う.
      * 
-     * @param todo
+     * @param todoId
      */
     public Todo delete(String todoId) {
 		
@@ -92,11 +86,11 @@ public class TodoCrudService {
     /**
      * Todoの取得(1件)を行う.
      * 
-     * @param todo
+     * @param todoId
      */
     public Todo refer(String todoId) {
 		
-    	if (todoId == null) {
+    	if (StringUtils.isEmpty(todoId)) {
     		return null;
     	}
     	
@@ -154,11 +148,11 @@ public class TodoCrudService {
     	}
     	
     	if (todo.getActualStart() != null) {
-    		todoModel.setActualstart(Date.from(todo.getActualStart().toInstant()));
+    		todoModel.setActualStart(Date.from(todo.getActualStart().toInstant()));
     	}
     	
     	if (todo.getActualEnd() != null) {
-    		todoModel.setActualend(Date.from(todo.getActualEnd().toInstant()));
+    		todoModel.setActualEnd(Date.from(todo.getActualEnd().toInstant()));
     	}
     	
     	todoModel.setStatus(todo.getStatus());
@@ -177,7 +171,7 @@ public class TodoCrudService {
     	todo.setId(todoModel.getId());
     	todo.setTitle(todoModel.getTitle());
     	todo.setDescription(todoModel.getDescription());
-    	
+
     	if (todoModel.getStart() != null) {
     		todo.setStart(OffsetDateTime.ofInstant(todoModel.getStart().toInstant(), ZoneId.systemDefault()));
     	}
@@ -186,12 +180,12 @@ public class TodoCrudService {
     		todo.setDue(OffsetDateTime.ofInstant(todoModel.getDue().toInstant(), ZoneId.systemDefault()));
     	}
     	
-    	if (todoModel.getActualstart() != null) {
-    		todo.setActualStart(OffsetDateTime.ofInstant(todoModel.getActualstart().toInstant(), ZoneId.systemDefault()));
+    	if (todoModel.getActualStart() != null) {
+    		todo.setActualStart(OffsetDateTime.ofInstant(todoModel.getActualStart().toInstant(), ZoneId.systemDefault()));
     	}
     	
-    	if (todoModel.getActualend() != null) {
-    		todo.setActualEnd(OffsetDateTime.ofInstant(todoModel.getActualend().toInstant(), ZoneId.systemDefault()));
+    	if (todoModel.getActualEnd() != null) {
+    		todo.setActualEnd(OffsetDateTime.ofInstant(todoModel.getActualEnd().toInstant(), ZoneId.systemDefault()));
     	}
     	
     	todo.setStatus(todoModel.getStatus());
