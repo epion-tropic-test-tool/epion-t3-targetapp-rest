@@ -1,18 +1,13 @@
 plugins {
     id 'org.springframework.boot' version '2.1.3.RELEASE'
+    id "org.flywaydb.flyway" version "5.2.4"
     id 'java'
+    id 'maven'
+    id 'idea'
+    id 'jacoco'
+    id 'eclipse'
+    id "io.spring.dependency-management" version "1.0.7.RELEASE"
 }
-
-apply plugin: 'io.spring.dependency-management'
-
-apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'
-apply plugin: 'jacoco'
-//apply plugin: "com.diffplug.gradle.spotless"
 
 ext {
     extention = 'jar'
@@ -21,6 +16,7 @@ ext {
 
 configurations {
     myBatisGenerator
+    flywayMigration
 }
 
 group = 'com.zomu.t.epion.tropic.test.tool'
@@ -37,7 +33,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    // implementation 'org.flywaydb:flyway-core'
+    implementation 'org.flywaydb:flyway-core'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
     // implementation 'org.springframework.session:spring-session-data-redis'
@@ -50,6 +46,8 @@ dependencies {
 
     myBatisGenerator("org.mybatis.generator:mybatis-generator-core:1.3.7")
     myBatisGenerator("mysql:mysql-connector-java:5.1.46")
+
+    flywayMigration 'mysql:mysql-connector-java:5.1.46'
 }
 
 dependencyManagement {
@@ -115,18 +113,18 @@ task packageSources(type: Jar, dependsOn: classes) {
 //        lineEndings 'UNIX'
 //    }
 //
-    sourceSets {
-        main {
-            java {
-                srcDir 'src/main/java'
-                srcDir 'src-gen/main/java'
-            }
-            resources {
-                srcDir 'src/main/resources'
-                srcDir 'src-gen/main/resources'
-            }
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+            srcDir 'src-gen/main/java'
+        }
+        resources {
+            srcDir 'src/main/resources'
+            srcDir 'src-gen/main/resources'
         }
     }
+}
 //}
 
 task generateMyBatisCode(type: JavaExec) {
@@ -139,12 +137,14 @@ task generateMyBatisCode(type: JavaExec) {
     ]
 }
 
-//flyway {
-//    url = 'jdbc:mysql://localhost:3307?useSSL=false'
-//    user = 'root'
-//    password = 'password'
-//    schemas = ['workdb', 'sampledb']
-//}
+flyway {
+    url = 'jdbc:mysql://localhost:3306?useSSL=false'
+//    driver = ' com.mysql.jdbc.Driver'
+    user = 'user'
+    password = 'password'
+    schemas = ['workdb', 'tododb']
+    configurations = ['flywayMigration']
+}
 
 task flywayRelease {
     doLast {
@@ -153,4 +153,5 @@ task flywayRelease {
         flywayInfo.execute()
     }
 }
+
 generateMyBatisCode.group = 'mybatis generator'
