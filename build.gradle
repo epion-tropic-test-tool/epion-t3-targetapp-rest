@@ -1,3 +1,18 @@
+buildscript {
+    ext {
+        gradleDockerVersion = '0.22.1'
+    }
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenCentral()
+    }
+    dependencies {
+        classpath "gradle.plugin.com.palantir.gradle.docker:gradle-docker:${gradleDockerVersion}"
+    }
+}
+
 plugins {
     id 'org.springframework.boot' version '2.1.3.RELEASE'
     id "org.flywaydb.flyway" version "5.2.4"
@@ -9,9 +24,13 @@ plugins {
     id "io.spring.dependency-management" version "1.0.7.RELEASE"
 }
 
+apply plugin: "com.palantir.docker"
+
 ext {
     extention = 'jar'
     set('springCloudVersion', 'Greenwich.RELEASE')
+    set('dockerImagePrefix', project.hasProperty("dockerImagePrefix") ? project.dockerImagePrefix : 'localhost:5000')
+    set('artifactVersion', project.hasProperty("dockerImageVersion") ? project.dockerImageVersion : '1.0.0')
 }
 
 configurations {
@@ -33,6 +52,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
@@ -138,7 +158,7 @@ task generateMyBatisCode(type: JavaExec) {
 }
 
 flyway {
-    url = 'jdbc:mysql://localhost:3306?useSSL=false'
+    url = 'jdbc:mysql://localhost:3307?useSSL=false'
     user = 'user'
     password = 'password'
     schemas = ['workdb', 'tododb']
@@ -146,5 +166,13 @@ flyway {
 }
 
 generateMyBatisCode.group = 'mybatis generator'
+
+docker {
+    name "${dockerImagePrefix}/${project.name}:${artifactVersion}"
+    files bootJar.archiveFile
+    buildArgs([
+            'JAR_FILE': "${bootJar.archiveFile.get().asFile.name}",
+    ])
+}
 
 
