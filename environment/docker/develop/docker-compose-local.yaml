@@ -1,0 +1,7 @@
+version: "3"
+services:
+  springboot:
+    image: localhost:5000/epion-t3-targetapp-rest:1.0.0
+  stub:
+    volumes:
+      - "/Users/kento/Desktop/git1/epion-t3-targetapp-rest/environment/docker/develop/stub/data:/var/lib/data"

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <div th:replace="common :: header" th:remove="tag"></div>
     <title>登録画面</title>
 </head>
 <body>
 
     <h2>Todo登録画面</h2>
-    <form name="todoCreate" method="post" action="./list.html" th:action="@{/todo/regist}">
+    <form name="todoCreate" method="post" action="./regist.html" th:action="@{/todo/regist}" th:object="${registForm}">
         <label>タイトル</label><br>
-        <input type="text" id="title" name="title" size="30 " maxlength="100" required><br>
+        <input type="text" id="title" name="title" size="30 " maxlength="100" th:field="*{title}" required><br>
         <label>説明</label><br>
-        <textarea name="description" row="6" cols="50" maxlength="300"></textarea><br>
+        <textarea name="description" row="6" cols="50" maxlength="300" th:field="*{description}"></textarea><br>
         <label>開始時刻</label><br>
-        <input type="datetime-local" id="start" name="startTime" required><br>
+        <input type="datetime-local" id="start" name="start" th:field="*{start}" required><br>
         <label>終了時刻</label><br>
-        <input type="datetime-local" id="due" name="due" required><br>
+        <input type="datetime-local" id="due" name="due" th:field="*{due}" required><br>
         <label>優先度</label><br>
-        <select id="priority" name="priority">
+        <select id="priority" name="priority" th:field="*{priority}">
             <option value="1">リアルタイム</option>
             <option value="2">高</option>
             <option value="3">通常以上</option>
@@ -32,5 +32,8 @@
     <form method="get" action="/todo/">
         <input id="menu" type="submit" value="メニューに戻る">
     </form>
+
+    <!-- jQuery、Popper.js、Bootstrap JS -->
+    <div th:replace="common :: header" th:remove="tag"></div>
 </body>
 </html>

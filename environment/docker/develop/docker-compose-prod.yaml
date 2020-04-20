@@ -1,0 +1,7 @@
+version: "3"
+services:
+  springboot:
+    image: epiontropictesttool/epion-t3-targetapp-rest:1.0.0
+  stub:
+    volumes:
+      - "/var/lib/stub/data:/var/lib/data"

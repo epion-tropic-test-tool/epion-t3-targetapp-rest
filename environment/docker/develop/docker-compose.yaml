@@ -11,11 +11,17 @@ services:
       timeout: 20s
       retries: 10
   springboot:
-    image: localhost:5000/epion-t3-targetapp-rest:1.0.0
     ports:
       - "8080:8080"
     links:
       - mysql
+      - stub
     depends_on:
       - mysql
+      - stub
+    restart: always
+  stub:
+    build: stub
+    ports:
+      - "8081:8080"
     restart: always

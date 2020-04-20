@@ -1,5 +1,6 @@
 package com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.app.controller;
 
+import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.app.bean.RegistForm;
 import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.app.model.Todo;
 import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.mapper.TodoMapper;
 import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.model.TodoModel;
@@ -7,6 +8,7 @@ import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.service.Tod
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -22,17 +23,17 @@ import java.util.List;
 public class TodoController {
 
     @Autowired
-    private TodoCrudService todoCrudService;
+    TodoCrudService todoCrudService;
 
     @Autowired
-    private TodoMapper todoMapper;
+    TodoMapper todoMapper;
 
     /**
      * トップ画面表示
      * @param mav
      * @return トップ画面表示
      */
-    @GetMapping(value = "/")
+    @GetMapping
     public ModelAndView index(ModelAndView mav) {
 
         mav.setViewName("index");
@@ -76,7 +77,7 @@ public class TodoController {
      * @return 登録画面表示
      */
     @GetMapping(value = "regist")
-    public ModelAndView resist(ModelAndView mav){
+    public ModelAndView resist(@ModelAttribute("registForm") RegistForm registForm, ModelAndView mav){
 
         mav.setViewName("regist");
         return mav;
@@ -84,32 +85,20 @@ public class TodoController {
 
     /**
      * 登録画面表示
-     * @param title タイトル
-     * @param description 詳細
-     * @param startTime 開始日時
-     * @param due 終了日時
-     * @param priority 優先度
      * @param mav
      * @return 参照画面表示
      * @throws ParseException
      */
     @PostMapping(value = "regist")
-    public ModelAndView resist(@RequestParam("title") String title,
-                               @RequestParam("description") String description,
-                               @RequestParam("startTime") String startTime,
-                               @RequestParam("due") String due,
-                               @RequestParam("priority") String priority,
-                               ModelAndView mav) throws ParseException {
+    public ModelAndView regist(@ModelAttribute("registForm") RegistForm registForm, ModelAndView mav) throws ParseException {
 
         Todo todo = new Todo();
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
-
-        todo.setTitle(title);
-        todo.setDescription(description);
-        todo.setPriority(Integer.valueOf(priority));
-        todo.setStart(OffsetDateTime.parse(startTime + "+09:00"));
-        todo.setDue(OffsetDateTime.parse(due + "+09:00"));
+        todo.setTitle(registForm.getTitle());
+        todo.setDescription(registForm.getDescription());
+        todo.setPriority(Integer.valueOf(registForm.getPriority()));
+        todo.setStart(OffsetDateTime.parse(registForm.getStart() + "+09:00"));
+        todo.setDue(OffsetDateTime.parse(registForm.getDue() + "+09:00"));
 
         todoCrudService.create(todo);
 
