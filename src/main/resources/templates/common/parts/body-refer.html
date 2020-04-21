@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+
+    <title>Todoアプリ</title>
+</head>
+<body th:fragment="refer">
+<h2>Todo参照画面</h2>
+<div>
+    <form method="get" action="/todo/result">
+        <input id="todoId" name="todoId" placeholder="todoIdを入力" type="id" value="">
+        <input id="search" type="submit" value="検索">
+    </form>
+</div>
+<br/>
+<div class="list-group" style="max-width: 1200px;">
+    <table class="table table-striped">
+        <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>start</th>
+            <th>due</th>
+            <th>status</th>
+            <th>priority</th>
+        </tr>
+        <tr th:each="todo : ${todos}">
+            <td id="id" th:text="${todo.id}"></td>
+            <td id="title" th:text="${todo.title}"></td>
+            <td id="start" th:text="${todo.start}"></td>
+            <td id="due" th:text="${todo.due}"></td>
+            <td id="status" th:text="${todo.status}"></td>
+            <td id="priority" th:text="${todo.priority}"></td>
+        </tr>
+    </table>
+</div>
+
+
+<form method="get" action="/todo/">
+    <input id="menu" type="submit" value="メニューに戻る">
+</form>
+
+</body>
+</html>

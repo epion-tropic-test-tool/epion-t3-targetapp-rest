@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="head">
     <meta charset="UTF-8">
 
     <title>Todoアプリ</title>
@@ -12,37 +12,5 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h2>Todo参照結果</h2>
-    <br/>
-    <div class="list-group" style="max-width: 1200px;">
-        <table class="table table-striped">
-            <tr>
-                <th>id</th>
-                <th>title</th>
-                <th>description</th>
-                <th>start</th>
-                <th>due</th>
-                <th>actual_start</th>
-                <th>actual_end</th>
-                <th>status</th>
-                <th>priority</th>
-            </tr>
-            <tr>
-                <td id="id">1</td>
-                <td id="title">2</td>
-                <td id="description">3</td>
-                <td id="start">4</td>
-                <td id="due">5</td>
-                <td id="actualStart">6</td>
-                <td id="actualEnd">7</td>
-                <td id="status">8</td>
-                <td id="priority">9</td>
-            </tr>
-        </table>
-    </div>
-
-    <form method="get" action="/todo/">
-        <input id="menu" type="submit" value="メニューに戻る">
-    </form>
 </body>
 </html>

@@ -29,7 +29,7 @@ apply plugin: "com.palantir.docker"
 ext {
     extention = 'jar'
     set('springCloudVersion', 'Greenwich.RELEASE')
-    set('dockerImagePrefix', project.hasProperty("dockerImagePrefix") ? project.dockerImagePrefix : 'localhost:5000')
+    set('dockerImagePrefix', project.hasProperty("dockerImagePrefix") ? project.dockerImagePrefix : 'epiontropictesttool')
     set('artifactVersion', project.hasProperty("dockerImageVersion") ? project.dockerImageVersion : '1.0.0')
 }
 

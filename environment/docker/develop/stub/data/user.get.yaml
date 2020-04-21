@@ -2,8 +2,10 @@
     headers:
       content-type: application/json
     body: |
-      {
-        "id": 1,
-        "name": "Hoge",
-        "sex": "m"
-      }
+        {
+          "id": 1,
+          "name": "Hoge",
+          "sex": "m",
+          "height": "180",
+          "weight": "70"
+        }

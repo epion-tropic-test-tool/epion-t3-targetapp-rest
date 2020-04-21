@@ -36,7 +36,7 @@ public class TodoController {
     @GetMapping
     public ModelAndView index(ModelAndView mav) {
 
-        mav.setViewName("index");
+        mav.setViewName("pages/index");
         return mav;
     }
 
@@ -51,7 +51,7 @@ public class TodoController {
         List<TodoModel> todos = todoMapper.selectAll();
 
         mav.addObject("todos", todos);
-        mav.setViewName("refer");
+        mav.setViewName("pages/refer");
         return mav;
     }
 
@@ -67,7 +67,7 @@ public class TodoController {
         Todo todo = todoCrudService.refer(todoId);
 
         mav.addObject("todo", todo);
-        mav.setViewName("todo");
+        mav.setViewName("pages/todo");
         return mav;
     }
 
@@ -79,7 +79,7 @@ public class TodoController {
     @GetMapping(value = "regist")
     public ModelAndView resist(@ModelAttribute("registForm") RegistForm registForm, ModelAndView mav){
 
-        mav.setViewName("regist");
+        mav.setViewName("pages/regist");
         return mav;
     }
 
