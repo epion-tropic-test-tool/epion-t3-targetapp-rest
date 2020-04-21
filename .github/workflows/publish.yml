@@ -12,8 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Grant execute permission for gradlew
-      - run: chmod +x gradlew
-      - run: graldlw clean build docker
+        run: |
+          chmod +x gradlew
+          graldlw clean build docker
       - uses: mr-smithers-excellent/docker-build-push@v2
         with:
           image: epiontropictesttool/epion-t3-targetapp-rest
