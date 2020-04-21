@@ -1,0 +1,12 @@
+{
+  "modelPackage": "com.zomu.t.epion.tropic.test.tool.epiont3targetappreset.app.v1.control",
+  "apiPackage": "com.zomu.t.epion.tropic.test.tool.epiont3targetappreset.app.v1.control",
+  "invokerPackage": "com.zomu.t.epion.tropic.test.tool.epiont3targetappreset.app.v1.control",
+  "serializableModel": "true",
+  "hideGenerationTimestamp": "true",
+  "dateLibrary": "java8",
+  "additionalProperties": {
+    "jackson": true
+  },
+  "delegatePattern": "true"
+}
