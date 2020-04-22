@@ -16,12 +16,20 @@ services:
     links:
       - mysql
       - stub
+      - redis
     depends_on:
       - mysql
       - stub
+      - redis
     restart: always
   stub:
     build: stub
     ports:
       - "8081:8080"
     restart: always
+  redis:
+    image: "redis:5.0.9"
+    ports:
+      - "6379:6379"
+
+
