@@ -3,7 +3,7 @@ package com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.service;
 import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.app.bean.User;
 import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.app.configuration.properties.AppConfig;
 import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.app.v1.control.InlineResponse200;
-import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.app.v1.control.StubApiController;
+import com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.app.v1.control.StubApiDelegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 
 @Service
-public class StubRestServiceImpl implements StubApiController.StubApiService {
+public class StubRestServiceImpl implements StubApiDelegate {
 
     @Autowired
     RestTemplate restTemplate;

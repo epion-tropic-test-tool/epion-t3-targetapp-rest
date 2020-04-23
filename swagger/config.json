@@ -7,5 +7,6 @@
   "dateLibrary": "java8",
   "additionalProperties": {
     "jackson": true
-  }
+  },
+  "delegatePattern": "true"
 }

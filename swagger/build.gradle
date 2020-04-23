@@ -20,7 +20,6 @@ swaggerSources {
         code {
             language="spring"
             configFile = file('config.json')
-            templateDir = file('templates/')
             components = ['models', 'apis']
         }
     }
