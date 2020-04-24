@@ -1,8 +1,28 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/parts/head::head">
-</head>
-<body th:replace="common/parts/body-refer::refer">
+<head th:replace="common/parts/head_fragment :: head_fragment(title = 'Todo参照')">
 
+</head>
+<body th:replace="common/parts/body_fragment::body_fragment(head='Todo参照画面',menu='true',divs = ~{::div})">
+<div class="list-group" style="max-width: 1200px;">
+    <table class="table table-striped">
+        <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>start</th>
+            <th>due</th>
+            <th>status</th>
+            <th>priority</th>
+        </tr>
+        <tr th:each="todo : ${todos}">
+            <td id="id" th:text="${todo.id}"></td>
+            <td id="title" th:text="${todo.title}"></td>
+            <td id="start" th:text="${todo.start}"></td>
+            <td id="due" th:text="${todo.due}"></td>
+            <td id="status" th:text="${todo.status}"></td>
+            <td id="priority" th:text="${todo.priority}"></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>

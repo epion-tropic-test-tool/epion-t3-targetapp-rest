@@ -1,0 +1,11 @@
+<body xmlns:th="http://www.thymeleaf.org" th:fragment="body_fragment(head,menu,divs)">
+    <h2 th:text="${head}"></h2>
+
+    <th:block th:replace="${divs}" />
+
+    <th:block th:if="${menu}">
+        <form method="get" action="/todo/">
+            <input id="menu" type="submit" value="メニューに戻る">
+        </form>
+    </th:block>
+</body>

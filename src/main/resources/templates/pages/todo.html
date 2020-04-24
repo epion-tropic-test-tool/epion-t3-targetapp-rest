@@ -1,8 +1,34 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/parts/head::head">
-</head>
-<body th:replace="common/parts/body-todo::todo">
+<head th:replace="common/parts/head_fragment :: head_fragment(title = 'Todo参照結果')">
 
+</head>
+<body th:replace="common/parts/body_fragment::body_fragment(head='Todo参照結果画面',menu='true',divs = ~{::div})">
+<div class="list-group" style="max-width: 1200px;">
+    <table class="table table-striped">
+        <tr>
+            <th>id</th>
+            <th>title</th>
+            <th>description</th>
+            <th>start</th>
+            <th>due</th>
+            <th>actual_start</th>
+            <th>actual_end</th>
+            <th>status</th>
+            <th>priority</th>
+        </tr>
+        <tr th:each="todo : ${todo}">
+            <td id="id" th:text="${todo.id}"></td>
+            <td id="title" th:text="${todo.title}"></td>
+            <td id="description" th:text="${todo.description}"></td>
+            <td id="start" th:text="${todo.start}"></td>
+            <td id="due" th:text="${todo.due}"></td>
+            <td id="actualStart" th:text="${todo.actualStart}"></td>
+            <td id="actualEnd" th:text="${todo.actualEnd}"></td>
+            <td id="status" th:text="${todo.status}"></td>
+            <td id="priority" th:text="${todo.priority}"></td>
+        </tr>
+    </table>
+</div>
 </body>
 </html>
