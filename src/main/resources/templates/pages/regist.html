@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="common/parts/head_fragment :: head_fragment(title = 'Todo登録')">
+<head>
+    <title>Todo登録</title>
 
+    <th:block th:fragment="links">
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </th:block>
 </head>
-<body th:replace="common/parts/body_fragment::body_fragment(head='Todo登録画面',menu='true',divs = ~{::div})">
-<div>
-    <form name="todoCreate" method="post" action="./regist.html" th:action="@{/todo/regist}" th:object="${registForm}">
-        <label>タイトル</label><br>
-        <input type="text" id="title" name="title" size="30 " maxlength="100" th:field="*{title}" required><br>
-        <label>説明</label><br>
-        <textarea name="description" row="6" cols="50" maxlength="300" th:field="*{description}"></textarea><br>
-        <label>開始時刻</label><br>
-        <input type="datetime-local" id="start" name="start" th:field="*{start}" required><br>
-        <label>終了時刻</label><br>
-        <input type="datetime-local" id="due" name="due" th:field="*{due}" required><br>
-        <label>優先度</label><br>
-        <select id="priority" name="priority" th:field="*{priority}">
-            <option value="1">リアルタイム</option>
-            <option value="2">高</option>
-            <option value="3">通常以上</option>
-            <option value="4" selected>通常</option>
-            <option value="5">通常以下</option>
-            <option value="6">低</option>
-        </select><br>
+<body>
+    <h2>Todo登録画面</h2>
 
-        <input type="submit" value="登録">
+    <div>
+        <form name="todoCreate" method="post" action="./regist.html" th:action="@{/todo/regist}" th:object="${registForm}">
+            <label>タイトル</label><br>
+            <input type="text" id="title" name="title" size="30 " maxlength="100" th:field="*{title}" required><br>
+            <label>説明</label><br>
+            <textarea name="description" row="6" cols="50" maxlength="300" th:field="*{description}"></textarea><br>
+            <label>開始時刻</label><br>
+            <input type="datetime-local" id="start" name="start" th:field="*{start}" required><br>
+            <label>終了時刻</label><br>
+            <input type="datetime-local" id="due" name="due" th:field="*{due}" required><br>
+            <label>優先度</label><br>
+            <select id="priority" name="priority" th:field="*{priority}">
+                <option value="1">リアルタイム</option>
+                <option value="2">高</option>
+                <option value="3">通常以上</option>
+                <option value="4" selected>通常</option>
+                <option value="5">通常以下</option>
+                <option value="6">低</option>
+            </select><br>
+
+            <input type="submit" value="登録">
+        </form>
+    </div>
+
+    <form method="get" action="/todo/">
+        <input id="menu" type="submit" value="メニューに戻る">
     </form>
-</div>
+
+    <th:block th:fragment="script">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </th:block>
 </body>
 </html>
