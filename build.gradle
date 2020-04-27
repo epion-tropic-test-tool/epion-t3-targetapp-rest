@@ -22,6 +22,7 @@ plugins {
     id 'jacoco'
     id 'eclipse'
     id "io.spring.dependency-management" version "1.0.9.RELEASE"
+    id 'org.hidetake.swagger.generator' version '2.18.2'
 }
 
 apply plugin: "com.palantir.docker"
@@ -45,6 +46,7 @@ sourceCompatibility = '1.8'
 repositories {
     mavenCentral()
     maven { url 'https://repo.spring.io/milestone' }
+    jcenter()
 }
 
 dependencies {
@@ -56,7 +58,8 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
     implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
-    implementation project(':swagger')
+    implementation 'io.swagger:swagger-annotations:1.5.22'
+    swaggerCodegen 'io.swagger:swagger-codegen-cli:2.4.13'
     // implementation 'org.springframework.session:spring-session-data-redis'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
@@ -175,5 +178,20 @@ docker {
             'JAR_FILE': "${bootJar.archiveFile.get().asFile.name}",
     ])
 }
+
+swaggerSources {
+    stubServer {
+        inputFile = file('stub.yaml')
+        code {
+            language="spring"
+            configFile = file('config.json')
+            components = ['models', 'apis']
+        }
+    }
+}
+
+compileJava.dependsOn swaggerSources*.code
+sourceSets.main.java.srcDir "${swaggerSources.stubServer.code.outputDir}/src/main/java"
+
 
 

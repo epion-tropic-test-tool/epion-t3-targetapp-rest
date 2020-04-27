@@ -23,7 +23,7 @@ public class StubRestServiceImpl implements StubApiDelegate {
     AppConfig appConfig;
 
     @Override
-    public ResponseEntity<InlineResponse200> getStubData(Integer id) {
+    public ResponseEntity<InlineResponse200> getUserData(Integer id) {
 
         URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getStubUrl())
                 .queryParam("id", id)
@@ -43,5 +43,4 @@ public class StubRestServiceImpl implements StubApiDelegate {
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
-
 }

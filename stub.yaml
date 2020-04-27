@@ -20,7 +20,7 @@ paths:
         - "stub"
       summary: "RestApi"
       description: "RestApi"
-      operationId: "getStubData"
+      operationId: "getUserData"
       consumes:
         - "application/json"
       produces:
