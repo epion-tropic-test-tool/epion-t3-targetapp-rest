@@ -1,0 +1,50 @@
+- when: params.id == '1'
+  response:
+    headers:
+      content-type: application/json
+    body: |
+      {
+        "id": 1,
+        "name": "Hoge",
+        "sex": "m",
+        "height": 180,
+        "weight": 70
+      }
+
+- when: params.id == '2'
+  response:
+    headers:
+      content-type: application/json
+    body: |
+      {
+        "id": 2,
+        "name": "Fuga",
+        "sex": "f",
+        "height": 160,
+        "weight": 45
+      }
+
+- when: params.id == '3'
+  response:
+    headers:
+      content-type: application/json
+    body: |
+      {
+        "id": 3,
+        "name": "Piyo",
+        "sex": "f",
+        "height": 150,
+        "weight": 40
+      }
+
+- response:
+    headers:
+      content-type: application/json
+    body: |
+      {
+        "id": 4,
+        "name": "foo",
+        "sex": "m",
+        "height": 203,
+        "weight": 113
+      }

@@ -1,0 +1,33 @@
+version: "3"
+services:
+  mysql:
+    build: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  springboot:
+    ports:
+      - "8080:8080"
+    links:
+      - mysql
+      - stub
+      - redis
+    depends_on:
+      - mysql
+      - stub
+      - redis
+    restart: always
+  stub:
+    build: stub
+    ports:
+      - "8081:8080"
+    restart: always
+  redis:
+    image: "redis:5.0.9"
+    ports:
+      - "6379:6379"
