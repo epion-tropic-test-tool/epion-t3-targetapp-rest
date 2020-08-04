@@ -1,4 +1,4 @@
-FROM mysql:5.6
+FROM mysql:5.7
 
 # 確認用
 # ENV TZ=Asia/Tokyo

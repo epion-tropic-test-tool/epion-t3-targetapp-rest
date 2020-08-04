@@ -16,7 +16,7 @@
         <!-- JDBC接続定義 -->
         <jdbcConnection
                 driverClass="com.mysql.jdbc.Driver"
-                connectionURL="jdbc:mysql://mysql:3306/tododb?useSSL=false"
+                connectionURL="jdbc:mysql://localhost:3307/tododb?useSSL=false"
                 userId="user"
                 password="password">
         </jdbcConnection>
@@ -27,20 +27,20 @@
 
         <!-- Model/Entity -->
         <javaModelGenerator
-                targetPackage="com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.model"
+                targetPackage="com.epion_t3.targetapp.domain.model"
                 targetProject="./src-gen/main/java">
         </javaModelGenerator>
 
         <!-- XMLMapper -->
         <sqlMapGenerator
-                targetPackage="com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.mapper"
+                targetPackage="com.epion_t3.targetapp.domain.mapper"
                 targetProject="./src-gen/main/resources">
         </sqlMapGenerator>
 
         <!-- MapperInterface -->
         <javaClientGenerator
                 type="XMLMAPPER"
-                targetPackage="com.zomu.t.epion.tropic.test.tool.epiont3targetapprest.domain.mapper"
+                targetPackage="com.epion_t3.targetapp.domain.mapper"
                 targetProject="./src-gen/main/java">
         </javaClientGenerator>
 

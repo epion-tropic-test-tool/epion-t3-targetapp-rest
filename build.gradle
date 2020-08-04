@@ -165,7 +165,7 @@ flyway {
     url = 'jdbc:mysql://localhost:3307?useSSL=false'
     user = 'user'
     password = 'password'
-    schemas = ['workdb', 'tododb']
+    schemas = [ 'tododb' ]
     configurations = ['flywayMigration']
 }
 
@@ -179,19 +179,19 @@ docker {
     ])
 }
 
-swaggerSources {
-    stubServer {
-        inputFile = file('stub.yaml')
-        code {
-            language="spring"
-            configFile = file('config.json')
-            components = ['models', 'apis']
-        }
-    }
-}
+//swaggerSources {
+//    stubServer {
+//        inputFile = file('stub.yaml')
+//        code {
+//            language="spring"
+//            configFile = file('config.json')
+//            components = ['models', 'apis']
+//        }
+//    }
+//}
 
-compileJava.dependsOn swaggerSources*.code
-sourceSets.main.java.srcDir "${swaggerSources.stubServer.code.outputDir}/src/main/java"
+//compileJava.dependsOn swaggerSources*.code
+//sourceSets.main.java.srcDir "${swaggerSources.stubServer.code.outputDir}/src/main/java"
 
 
 
