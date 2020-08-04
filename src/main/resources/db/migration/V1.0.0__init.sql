@@ -8,21 +8,8 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema tododb
--- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `tododb` ;
-
--- -----------------------------------------------------
--- Schema tododb
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `tododb` DEFAULT CHARACTER SET utf8 ;
-USE `tododb` ;
-
--- -----------------------------------------------------
 -- Table `tododb`.`todo`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tododb`.`todo` ;
-
 CREATE TABLE IF NOT EXISTS `tododb`.`todo` (
   `id` VARCHAR(36) NOT NULL,
   `title` VARCHAR(45) NOT NULL,
